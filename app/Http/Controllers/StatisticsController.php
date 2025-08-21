@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\StatisticsAction;
+use App\Http\Resources\StatisticsResource;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -14,21 +16,8 @@ class StatisticsController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $products = Product::query();
-        $productsCount = $products->count();
-        $productsAveragePrice = $products->average('price');
+        $statistics = (new StatisticsAction)->execute();
 
-        $sql = "lasdkfjl"
-        $topFiveMostExpensiveProducts = DB::select($sql);
-
-
-        $totalByCategory = DB::table('categories')
-            ->select('categories.name', DB::raw('COUNT(products.id) as total_products'))
-            ->join('products', 'categories.id', '=', 'products.category_id')
-            ->groupBy('categories.name')
-            ->orderBy('total_products', 'desc')
-            ->get();
-
-        dd($totalByCategory);
+        return StatisticsResource::make($statistics);
     }
 }
