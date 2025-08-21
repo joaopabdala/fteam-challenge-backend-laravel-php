@@ -6,17 +6,17 @@
     - [ ] Logar entrada e saída das requisições (rota, status) e medir tempo de resposta
     - [ ] Retornar erro `400` caso header esteja ausente
 
-- [ ] **Sincronização de produtos**
-    - [ ] Criar endpoint para iniciar a sincronização com a Fake Store API (`/integracoes/fakestore/sync`)
-    - [ ] Importar produtos e categorias
-    - [ ] Evitar duplicidades usando identificador externo único (`external_id = id da Fake Store`)
-    - [ ] Atualizar registros existentes quando houver mudanças
+- [x] **Sincronização de produtos**
+    - [x] Criar endpoint para iniciar a sincronização com a Fake Store API (`/integracoes/fakestore/sync`)
+    - [x] Importar produtos e categorias
+    - [x] Evitar duplicidades usando identificador externo único (`external_id = id da Fake Store`)
+    - [x] Atualizar registros existentes quando houver mudanças
 
-- [ ] **Catálogo**
-    - [ ] Listar produtos com paginação
-    - [ ] Adicionar filtros: categoria, preço mínimo, preço máximo, busca por texto no título
-    - [ ] Implementar ordenação por preço (asc/desc)
-    - [ ] Buscar produto por id interno
+- [x] **Catálogo**
+    - [x] Listar produtos com paginação
+    - [x] Adicionar filtros: categoria, preço mínimo, preço máximo, busca por texto no título
+    - [x] Implementar ordenação por preço (asc/desc)
+    - [x] Buscar produto por id interno
 
 - [ ] **Estatísticas (SQL puro em pelo menos uma consulta)**
     - [ ] Endpoint que retorna:
@@ -28,24 +28,24 @@
 
 - [ ] **Resiliência e erros**
     - [ ] Tratar erro e timeout da API externa com resposta apropriada (`4xx/5xx`)
-    - [ ] Garantir que sincronização não quebre por causa de um item com erro (pular e registrar)
+    - [x] Garantir que sincronização não quebre por causa de um item com erro (pular e registrar)
 
 ---
 
 ## Requisitos técnicos
-- [ ] Usar **Laravel 10+**
-- [ ] Banco de dados: MySQL ou PostgreSQL (documentar no README)
-- [ ] Criar migrations para produtos e categorias (relação 1:N)
-- [ ] Índices:
-    - [ ] `unique` em `external_id` de produtos
-    - [ ] Índice em nome da categoria
+- [x] Usar **Laravel 10+**
+- [x] Banco de dados: MySQL ou PostgreSQL (documentar no README)
+- [x] Criar migrations para produtos e categorias (relação 1:N)
+- [x] Índices:
+    - [x] `unique` em `external_id` de produtos
+    - [x] Índice em nome da categoria
     - [ ] Índices para filtros de listagem (`categoria_id`, preço)
-- [ ] Consumir API externa usando **HTTP Client nativo do Laravel**
+- [x] Consumir API externa usando **HTTP Client nativo do Laravel**
 - [ ] Evitar problema de **N+1** queries na listagem
 - [ ] Pelo menos uma consulta em SQL puro no endpoint de estatísticas
 - [ ] Cache de listagem/estatísticas com invalidação após sincronização
 - [ ] Rate limiting por cliente no middleware
-- [ ] Paginação configurável via query string
+- [x] Paginação configurável via query string
 - [ ] Retries com backoff no consumo da API externa
 - [ ] Testes (unitários/feature) para pelo menos um endpoint crítico
 - [ ] Docker (Dockerfile e docker-compose)
