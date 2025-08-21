@@ -38,7 +38,7 @@ class FakeStoreService{
         return $response->json();
     }
 
-    public function getProductsCategories()
+    public function getCategories()
     {
         try{
             $response = $this->httpClient->get($this->endpoint. "/products/categories");

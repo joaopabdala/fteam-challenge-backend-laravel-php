@@ -6,5 +6,5 @@ interface StoreInterface
 {
     public function getAllProducts();
 
-    public function getProductsCategories();
+    public function getCategories();
 }
