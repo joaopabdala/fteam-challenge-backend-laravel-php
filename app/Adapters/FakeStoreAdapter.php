@@ -19,8 +19,8 @@ class FakeStoreAdapter implements StoreInterface
         return $this->service->getAllProducts();
     }
 
-    public function getProductsCategories()
+    public function getCategories()
     {
-        return $this->service->getProductsCategories();
+        return $this->service->getCategories();
     }
 }

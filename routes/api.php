@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\StoreSynchronizationController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/products', function () {
-    return 'products';
-});
+Route::get('/products', [ProductsController::class, 'index']);
 
-Route::get('/store/sync', function () { return 'sync';});
+Route::post('/store/sync', StoreSynchronizationController::class);
