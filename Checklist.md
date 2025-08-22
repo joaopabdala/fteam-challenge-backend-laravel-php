@@ -1,10 +1,10 @@
 # ✅ Checklist - Desafio Técnico em Laravel (Integração com Fake Store API)
 
 ## Entregas obrigatórias
-- [ ] **Middleware de integração**
-    - [ ] Validar presença de um header personalizado (ex.: `X-Client-Id`)
-    - [ ] Logar entrada e saída das requisições (rota, status) e medir tempo de resposta
-    - [ ] Retornar erro `400` caso header esteja ausente
+- [x] **Middleware de integração**
+    - [x] Validar presença de um header personalizado (ex.: `X-Client-Id`)
+    - [x] Logar entrada e saída das requisições (rota, status) e medir tempo de resposta
+    - [x] Retornar erro `400` caso header esteja ausente
 
 - [x] **Sincronização de produtos**
     - [x] Criar endpoint para iniciar a sincronização com a Fake Store API (`/integracoes/fakestore/sync`)
@@ -18,13 +18,13 @@
     - [x] Implementar ordenação por preço (asc/desc)
     - [x] Buscar produto por id interno
 
-- [ ] **Estatísticas (SQL puro em pelo menos uma consulta)**
-    - [ ] Endpoint que retorna:
-        - [ ] Total de produtos
-        - [ ] Total por categoria
-        - [ ] Preço médio geral
-        - [ ] Top 5 produtos mais caros
-    - [ ] Usar SQL puro em pelo menos uma agregação
+- [x] **Estatísticas (SQL puro em pelo menos uma consulta)**
+    - [x] Endpoint que retorna:
+        - [x] Total de produtos
+        - [x] Total por categoria
+        - [x] Preço médio geral
+        - [x] Top 5 produtos mais caros
+    - [x] Usar SQL puro em pelo menos uma agregação
 
 - [ ] **Resiliência e erros**
     - [ ] Tratar erro e timeout da API externa com resposta apropriada (`4xx/5xx`)
@@ -39,17 +39,16 @@
 - [x] Índices:
     - [x] `unique` em `external_id` de produtos
     - [x] Índice em nome da categoria
-    - [ ] Índices para filtros de listagem (`categoria_id`, preço)
+    - [x] Índices para filtros de listagem (`categoria_id`, preço)
 - [x] Consumir API externa usando **HTTP Client nativo do Laravel**
-- [ ] Evitar problema de **N+1** queries na listagem
-- [ ] Pelo menos uma consulta em SQL puro no endpoint de estatísticas
+- [x] Evitar problema de **N+1** queries na listagem
 - [ ] Cache de listagem/estatísticas com invalidação após sincronização
 - [ ] Rate limiting por cliente no middleware
 - [x] Paginação configurável via query string
 - [ ] Retries com backoff no consumo da API externa
 - [ ] Testes (unitários/feature) para pelo menos um endpoint crítico
-- [ ] Docker (Dockerfile e docker-compose)
-- [ ] Logs estruturados (json) e correlação de request id
+- [x] Docker (Dockerfile e docker-compose)
+- [x] Logs estruturados (json) e correlação de request id
 
 ---
 
