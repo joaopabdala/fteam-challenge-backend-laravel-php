@@ -65,6 +65,46 @@ tail -f storage/logs/laravel.json.log | jq
 ```
 
 ---
+## 📝 Logs
+
+Os logs estruturados são gravados em:
+
+```
+storage/logs/laravel.json.log
+```
+
+Para visualização em tempo real no terminal, recomenda-se:
+
+```bash
+tail -f storage/logs/laravel.json.log | jq
+```
+
+-----
+
+## ⚙️ Configuração do `.env`
+
+É possível personalizar a integração alterando as seguintes variáveis no arquivo `.env`:
+
+* **Provedor e URL da API**:
+
+  ```bash
+  STORE_PROVIDER_NAME='fake-store-api'
+  API_STORE_URL='https://fakestoreapi.com'
+  ```
+
+  Os valores padrões já estão definidos como *fallback* na configuração do Laravel.
+
+* **Configurações de Cache e Log**:
+  Certifique-se de que a *stack* de logs e o *driver* de cache estão respectivamente como json e redis.
+
+  ```bash
+  LOG_STACK=json
+  CACHE_STORE=redis
+  ```
+
+-----
+
+
 
 ## 🗂️ Modelagem de Dados
 
