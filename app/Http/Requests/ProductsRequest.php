@@ -24,8 +24,8 @@ class ProductsRequest extends FormRequest
         return [
             'category_id' => 'nullable|exists:categories,id',
             'title' => 'nullable|string',
-            'max_price' => 'nullable|integer',
-            'min_price' => 'nullable|integer',
+            'max_price' => 'nullable|numeric',
+            'min_price' => 'nullable|numeric',
             'order_by_price' => 'nullable|in:asc,desc',
             'per_page' => 'nullable|integer|min:1|max:100',
         ];

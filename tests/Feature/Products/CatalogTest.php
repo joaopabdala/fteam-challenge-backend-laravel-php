@@ -3,7 +3,6 @@
 use App\Models\Category;
 use App\Models\Product;
 
-use App\Utils\FormatHelper;
 use function Pest\Laravel\getJson;
 use function Pest\Laravel\withHeaders;
 
@@ -71,14 +70,14 @@ test('it can filter products by category', function () {
 test('it can filter by min and max price', function () {
     Product::query()->delete();
 
-    Product::factory()->create(['price' => 5000]);
-    Product::factory()->create(['price' => 10000]);
-    Product::factory()->create(['price' => 15000]);
+    Product::factory()->create(['price' => 50.00]);
+    Product::factory()->create(['price' => 100.00]);
+    Product::factory()->create(['price' => 150.00]);
 
-    getJson('/api/products?min_price=7500&max_price=12500')
+    getJson('/api/products?min_price=75.00&max_price=125.00')
         ->assertOk()
         ->assertJsonCount(1, 'data')
-        ->assertJsonFragment(['price' => FormatHelper::currencyFormat(10000)]);
+        ->assertJsonFragment(['price' => 100.00]);
 });
 
 
@@ -92,8 +91,8 @@ test('it can filter by title', function () {
 });
 
 test('it can sort products by price descending', function () {
-    Product::factory()->create(['price' => 1000]);
-    Product::factory()->create(['price' => 9000]);
+    Product::factory()->create(['price' => 10.00]);
+    Product::factory()->create(['price' => 90.00]);
 
     $response = getJson('/api/products?order_by_price=desc');
 

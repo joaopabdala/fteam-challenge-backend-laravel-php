@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Utils\FormatHelper;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,16 +16,9 @@ class StatisticsResource extends JsonResource
     {
         return [
             'products_count' => $this['productsCount'],
-            'average_price' => FormatHelper::currencyFormat($this['productsAveragePrice']),
+            'average_price' => number_format($this['productsAveragePrice'], 2, '.', ''),
             'count_by_category' => $this['totalByCategory'],
-            'top_expensive_products' => collect($this['topFiveMostExpensiveProducts'])
-                ->map(function ($product) {
-                    $productData = (array)$product;
-
-                    $productData['price'] = FormatHelper::currencyFormat($productData['price']);
-
-                    return $productData;
-                }),
+            'top_expensive_products' => $this['topFiveMostExpensiveProducts']
         ];
     }
 }

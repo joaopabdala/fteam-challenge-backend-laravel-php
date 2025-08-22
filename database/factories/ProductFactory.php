@@ -21,7 +21,7 @@ class ProductFactory extends Factory
             'external_id' => $this->faker->unique()->randomNumber(5),
             'title' => $this->faker->sentence(4),
             'description' => $this->faker->paragraph,
-            'price' => $this->faker->numberBetween(1000, 20000),
+            'price' => $this->faker->randomFloat(2, 10, 500),
             'image' => $this->faker->imageUrl(),
             'rating_rate' => $this->faker->randomFloat(2, 1, 5),
             'rating_count' => $this->faker->numberBetween(0, 500),
