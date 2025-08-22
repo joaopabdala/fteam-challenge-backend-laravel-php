@@ -42,11 +42,11 @@
     - [x] Índices para filtros de listagem (`categoria_id`, preço)
 - [x] Consumir API externa usando **HTTP Client nativo do Laravel**
 - [x] Evitar problema de **N+1** queries na listagem
-- [ ] Cache de listagem/estatísticas com invalidação após sincronização
+- [x] Cache de listagem/estatísticas com invalidação após sincronização
 - [ ] Rate limiting por cliente no middleware
 - [x] Paginação configurável via query string
 - [ ] Retries com backoff no consumo da API externa
-- [ ] Testes (unitários/feature) para pelo menos um endpoint crítico
+- [x] Testes (unitários/feature) para pelo menos um endpoint crítico
 - [x] Docker (Dockerfile e docker-compose)
 - [x] Logs estruturados (json) e correlação de request id
 

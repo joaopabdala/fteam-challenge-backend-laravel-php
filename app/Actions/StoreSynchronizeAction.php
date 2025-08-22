@@ -56,6 +56,7 @@ class StoreSynchronizeAction
 
             $productCount = count($productsFromApi);
             $categoryCount = count($categoriesFromApi);
+            (new StatisticsAction)->resetCache();
             Log::info("Synchronization completed successfully. {$productCount} products and {$categoryCount} categories processed.");
 
         } catch (ConnectionException $e) {
