@@ -12,9 +12,9 @@ class FakeStoreAdapter implements StoreInterface
 
     protected FakeStoreService $service;
 
-    public function __construct()
+    public function __construct(FakeStoreService $service)
     {
-        $this->service = (new FakeStoreService);
+        $this->service = $service;
     }
 
     public function getAllProducts()
