@@ -19,7 +19,14 @@ class StatisticsResource extends JsonResource
             'products_count' => $this['productsCount'],
             'average_price' => FormatHelper::currencyFormat($this['productsAveragePrice']),
             'count_by_category' => $this['totalByCategory'],
-            'top_expensive_products' => $this['topFiveMostExpensiveProducts'],
+            'top_expensive_products' => collect($this['topFiveMostExpensiveProducts'])
+                ->map(function ($product) {
+                    $productData = (array)$product;
+
+                    $productData['price'] = FormatHelper::currencyFormat($productData['price']);
+
+                    return $productData;
+                }),
         ];
     }
 }
