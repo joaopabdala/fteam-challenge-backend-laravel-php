@@ -16,7 +16,7 @@ class FakeStoreService
         $this->httpClient = Http::withHeaders([
             'Content-Type' => 'application/json',
         ])->acceptJson();
-        $this->endpoint = "https://fakestoreapi.com/asdsada";
+        $this->endpoint = config('store.api-url');
     }
 
     private function get(string $path): Response
