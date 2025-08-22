@@ -23,6 +23,10 @@ class Product extends Model
         'rating_count',
     ];
 
+    protected $casts = [
+        'price' => 'float'
+    ];
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

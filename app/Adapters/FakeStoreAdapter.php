@@ -27,13 +27,14 @@ class FakeStoreAdapter implements StoreInterface
                 externalId: $productData['id'],
                 title: $productData['title'],
                 description: $productData['description'],
-                price: (int) ($productData['price'] * 100),
+                price: $productData['price'],
                 categoryName: $productData['category'],
                 imageUrl: $productData['image'],
                 ratingRate: $productData['rating']['rate'],
                 ratingCount: $productData['rating']['count']
             );
         }
+
         return $productDTOs;
     }
 

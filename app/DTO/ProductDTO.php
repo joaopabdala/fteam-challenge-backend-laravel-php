@@ -8,7 +8,7 @@ readonly class ProductDTO
         public int $externalId,
         public string $title,
         public string $description,
-        public int $price,
+        public float $price,
         public string $categoryName,
         public string $imageUrl,
         public float $ratingRate,
