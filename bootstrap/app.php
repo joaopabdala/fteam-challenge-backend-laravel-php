@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\AssignRequestId;
 use App\Http\Middleware\LogHttpInboundRequests;
+use App\Http\Middleware\RateLimitByClientMiddleware;
 use App\Http\Middleware\ValidateClientIdHeader;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -25,7 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->appendToGroup('api', [
-            ValidateClientIdHeader::class
+            ValidateClientIdHeader::class,
+            RateLimitByClientMiddleware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
