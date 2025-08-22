@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\StoreSynchronizeAction;
+use App\Jobs\StoreSynchronizedJob;
 use Illuminate\Http\Request;
 
 class StoreSynchronizationController extends Controller
@@ -12,7 +13,7 @@ class StoreSynchronizationController extends Controller
      */
     public function __invoke(Request $request)
     {
-        (new StoreSynchronizeAction)->execute();
+        StoreSynchronizedJob::dispatch();
 
         return response()->noContent();
     }

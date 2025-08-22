@@ -7,49 +7,64 @@ use App\Models\Category;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class StatisticsAction
 {
+
+    public $cacheKey = 'store_statistics';
+
+
     public function execute($limit= 5)
     {
-        $products = Product::query();
-        $productsCount = $products->count();
-        $productsAveragePrice = $products->average('price');
+        $cacheDuration = 3600;
 
-        $topFiveMostExpensiveProductsSql = "
-        SELECT p.id, p.title, p.price
-        FROM products p
-        ORDER BY p.price DESC
-        LIMIT ?
-        ";
+        return Cache::remember($this->cacheKey, $cacheDuration, function () use ($limit) {
 
-        $topFiveMostExpensiveProducts = DB::select($topFiveMostExpensiveProductsSql, [$limit]);
+            $products = Product::query();
+            $productsCount = $products->count();
+            $productsAveragePrice = $products->average('price');
 
-        $totalProductsByCategoryRawSql = "
-    SELECT
-        c.name,
-        COUNT(p.id) as total_products
-    FROM
-        categories c
-    JOIN
-        products p ON c.id = p.category_id
-    GROUP BY
-        c.name
-    ORDER BY
-        total_products DESC
-";
+            $topFiveMostExpensiveProductsSql = "
+            SELECT p.id, p.title, p.price
+            FROM products p
+            ORDER BY p.price DESC
+            LIMIT ?
+            ";
+
+            $topFiveMostExpensiveProducts = DB::select($topFiveMostExpensiveProductsSql, [$limit]);
+
+            $totalProductsByCategoryRawSql = "
+        SELECT
+            c.name,
+            COUNT(p.id) as total_products
+        FROM
+            categories c
+        JOIN
+            products p ON c.id = p.category_id
+        GROUP BY
+            c.name
+        ORDER BY
+            total_products DESC
+    ";
 
 
-        $totalByCategory = DB::select($totalProductsByCategoryRawSql);
+            $totalByCategory = DB::select($totalProductsByCategoryRawSql);
 
-        return [
-            'totalByCategory' => $totalByCategory,
-            'productsCount' => $productsCount,
-            'productsAveragePrice' => $productsAveragePrice,
-            'topFiveMostExpensiveProducts' => $topFiveMostExpensiveProducts
-        ];
+            return [
+                'totalByCategory' => $totalByCategory,
+                'productsCount' => $productsCount,
+                'productsAveragePrice' => $productsAveragePrice,
+                'topFiveMostExpensiveProducts' => $topFiveMostExpensiveProducts
+            ];
+    });
+    }
+
+    public function resetCache()
+    {
+        Cache::delete($this->cacheKey);
     }
 
 }
