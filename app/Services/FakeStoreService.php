@@ -1,12 +1,12 @@
 <?php
+
 namespace App\Services;
 
-use Exception;
-use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
-class FakeStoreService{
+class FakeStoreService
+{
 
     private $httpClient;
     private $endpoint;
@@ -15,36 +15,24 @@ class FakeStoreService{
     {
         $this->httpClient = Http::withHeaders([
             'Content-Type' => 'application/json',
-        ]);
-        $this->endpoint = "https://fakestoreapi.com/";
+        ])->acceptJson();
+        $this->endpoint = "https://fakestoreapi.com/asdsada";
     }
 
     private function get(string $path): Response
     {
-        try {
-            return Http::acceptJson()->get($this->endpoint . $path)->throw();
-        } catch (RequestException $e) {
-            throw $e;
-        }
+        return $this->httpClient->retry(3, 100)->get($this->endpoint . $path)->throw();
     }
 
     public function getAllProducts()
     {
-        try{
-            $response = $this->httpClient->get($this->endpoint. "/products");
-        } catch (Exception $exception){
-            return $exception->getMessage();
-        }
+        $response = $this->httpClient->get($this->endpoint . "/products");
         return $response->json();
     }
 
     public function getCategories()
     {
-        try{
-            $response = $this->httpClient->get($this->endpoint. "/products/categories");
-        } catch (Exception $exception){
-            return $exception->getMessage();
-        }
+        $response = $this->httpClient->get($this->endpoint . "/products/categories");
         return $response->json();
     }
 }
