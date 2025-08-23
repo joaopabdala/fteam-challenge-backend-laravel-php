@@ -4,6 +4,16 @@
 
 ## ⚙️ Setup
 
+### Copiar .env.example para .env
+```bash
+cp .env.example .env
+````
+
+### Composer install para gerar o vendor
+```bash
+composer install
+````
+
 A aplicação roda em **Docker** utilizando o Laravel Sail.
 
 ### Subir os containers

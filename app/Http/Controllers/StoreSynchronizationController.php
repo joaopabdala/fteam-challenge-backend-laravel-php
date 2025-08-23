@@ -13,9 +13,7 @@ class StoreSynchronizationController extends Controller
      */
     public function __invoke(Request $request)
     {
-//        StoreSynchronizedJob::dispatch();
-        (new StoreSynchronizeAction)->execute();
-
+        StoreSynchronizedJob::dispatch();
         return response()->noContent();
     }
 }
