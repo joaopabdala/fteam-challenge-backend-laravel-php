@@ -26,13 +26,13 @@ class FakeStoreService
 
     public function getAllProducts()
     {
-        $response = $this->httpClient->get($this->endpoint . "/products");
+        $response = $this->get("/products");
         return $response->json();
     }
 
     public function getCategories()
     {
-        $response = $this->httpClient->get($this->endpoint . "/products/categories");
+        $response = $this->get("/products/categories");
         return $response->json();
     }
 }

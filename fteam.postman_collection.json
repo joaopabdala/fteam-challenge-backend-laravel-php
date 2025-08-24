@@ -95,7 +95,13 @@
 			"name": "product show",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "{{baseUrl}}/products/1",
 					"host": [
@@ -108,7 +114,7 @@
 					"query": [
 						{
 							"key": "",
-							"value": null,
+							"value": "",
 							"disabled": true
 						}
 					]

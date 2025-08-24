@@ -14,7 +14,7 @@ cp .env.example .env
 composer install
 ````
 
-A aplicação roda em **Docker** utilizando o Laravel Sail.
+## A aplicação roda em **Docker** utilizando o Laravel Sail.
 
 ### Subir os containers
 ```bash
@@ -84,7 +84,7 @@ tail -f storage/logs/laravel.json.log | jq
 
 ## ⚙️ Configuração do `.env`
 
-É possível personalizar a integração alterando as seguintes variáveis no arquivo `.env`:
+É possível personalizar a integração alterando as seguintes variáveis no arquivo `.env` (Foi feito um esquema de adapters e facotires para consumir a api, visando escalabilidade/alteração da api no futuro do projeto):
 
 * **Provedor e URL da API**:
 
@@ -92,8 +92,10 @@ tail -f storage/logs/laravel.json.log | jq
   STORE_PROVIDER_NAME='fake-store-api'
   API_STORE_URL='https://fakestoreapi.com'
   ```
+OBS: Os valores padrões já estão definidos como *fallback* na configuração do Laravel.
 
-  Os valores padrões já estão definidos como *fallback* na configuração do Laravel.
+> **Nota de Arquitetura**: A aplicação utiliza os padrões de projeto Adapter e Factory para consumir a API. Essa abordagem foi escolhida para permitir que a fonte dos dados seja facilmente trocada no futuro, garantindo maior escalabilidade e manutenção.
+
 
 
 * **Configurações de Cache e Log**:

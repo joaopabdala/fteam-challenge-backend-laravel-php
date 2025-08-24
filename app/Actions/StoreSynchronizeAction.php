@@ -2,12 +2,13 @@
 
 namespace App\Actions;
 
+use App\Actions\Sync\CategorySyncAction;
+use App\Actions\Sync\ProductSyncAction;
 use App\Factories\StoreFactory;
-use App\Models\Category;
 use App\Models\Product;
-use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class StoreSynchronizeAction
@@ -19,47 +20,16 @@ class StoreSynchronizeAction
             $startTime = microtime(true);
             $store = StoreFactory::make();
 
-
             $categoriesFromApi = $store->getCategories();
-
-            foreach ($categoriesFromApi as $categoryName) {
-                try {
-                    Category::updateOrCreate(
-                        ['name' => $categoryName],
-                        []
-                    );
-                } catch (Exception $e) {
-                    Log::error($e->getMessage());
-                }
-            }
+            (new CategorySyncAction)->execute($categoriesFromApi);
 
             $productsFromApi = $store->getAllProducts();
-            $categoryMap = Category::pluck('id', 'name');
-            foreach ($productsFromApi as $product) {
-                try {
-                    Product::updateOrCreate(
-                        ['external_id' => $product->externalId],
-                        [
-                            'title' => $product->title,
-                            'description' => $product->description,
-                            'price' => $product->price,
-                            'image' => $product->imageUrl,
-                            'rating_rate' => $product->ratingRate,
-                            'rating_count' => $product->ratingCount,
-                            'category_id' => $categoryMap[$product->categoryName] ?? null
-                        ]
-                    );
-                } catch (Exception $e) {
-                    Log::warning(
-                        "Failed to sync product with external ID: {$product['id']}. Reason: {$e->getMessage()}"
-                    );
-                    continue;
-                }
-            }
+            (new ProductSyncAction)->execute($productsFromApi);
+
+            $this->cleanCache();
 
             $productCount = count($productsFromApi);
             $categoryCount = count($categoriesFromApi);
-            (new StatisticsAction)->resetCache();
             $endTime = microtime(true);
             $duration = ($endTime - $startTime) * 1000;
             Log::info("Synchronization completed successfully. {$productCount} products and {$categoryCount} categories processed in " . round($duration, 2) . " ms.");
@@ -80,5 +50,11 @@ class StoreSynchronizeAction
             Log::error('Unknown error while synchronizing with the Fake Store API: ' . $e->getMessage());
             throw new \Exception('An internal error occurred during synchronization.', 500);
         }
+    }
+
+    private function cleanCache()
+    {
+        (new StatisticsAction)->resetCache();
+        Cache::tags([Product::CACHE_TAG])->flush();
     }
 }

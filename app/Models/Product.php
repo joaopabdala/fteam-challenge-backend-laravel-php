@@ -11,6 +11,8 @@ class Product extends Model
 {
     use HasFactory;
 
+    public const CACHE_TAG = 'products_list';
+
     protected $table = 'products';
     protected $fillable = [
         'external_id',

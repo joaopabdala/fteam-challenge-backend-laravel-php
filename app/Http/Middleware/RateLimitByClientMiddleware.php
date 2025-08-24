@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class RateLimitByClientMiddleware
 {
 
-    protected $rateLimit;
+    protected RateLimiter $rateLimit;
 
     public function __construct(RateLimiter $rateLimit)
     {
