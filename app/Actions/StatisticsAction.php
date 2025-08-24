@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 class StatisticsAction
 {
 
-    public $cacheKey = 'store_statistics';
+    protected $cacheKey = 'store_statistics';
 
 
     public function execute($limit= 5)
@@ -49,7 +49,6 @@ class StatisticsAction
         ORDER BY
             total_products DESC
     ";
-
 
             $totalByCategory = DB::select($totalProductsByCategoryRawSql);
 

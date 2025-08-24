@@ -1,8 +1,13 @@
 <?php
+
+/**
+ * declares strict_types for DTO typings
+ */
 declare(strict_types=1);
 
 namespace App\Adapters;
 
+use App\DTO\CategoryDTO;
 use App\DTO\ProductDTO;
 use App\Interfaces\StoreInterface;
 use App\Services\FakeStoreService;
@@ -17,6 +22,9 @@ class FakeStoreAdapter implements StoreInterface
         $this->service = $service;
     }
 
+    /**
+     * @return ProductDTO[]
+     */
     public function getAllProducts()
     {
         $products =  $this->service->getAllProducts();
@@ -38,8 +46,19 @@ class FakeStoreAdapter implements StoreInterface
         return $productDTOs;
     }
 
+    /**
+     * @return CategoryDTO[]
+     */
     public function getCategories()
     {
-        return $this->service->getCategories();
+        $categoriesFromApi =  $this->service->getCategories();
+        $categoriesDTO = [];
+        foreach ($categoriesFromApi as $category) {
+            $categoriesDTO[] = new CategoryDTO(
+                name: $category
+            );
+        }
+
+        return $categoriesDTO;
     }
 }
