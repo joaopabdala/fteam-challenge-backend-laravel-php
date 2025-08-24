@@ -12,5 +12,4 @@ Route::get('/products/{product}', [ProductsController::class, 'show']);
 
 Route::get('/statistics', StatisticsController::class);
 
-
 Route::post('/store/sync', StoreSynchronizationController::class);

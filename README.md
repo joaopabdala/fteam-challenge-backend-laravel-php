@@ -47,10 +47,16 @@ Para iniciar a sincronização com a Fake Store API, acesse o endpoint:
 
 ## 📡 Endpoints Disponíveis
 
+* `POST /store/sync` → sincroniza com a api externa.
 * `GET /products/categories` → lista categorias.
 * `GET /products` → lista produtos (com paginação, filtros e ordenação).
 * `GET /products/{product}` → consulta produto por ID interno.
 * `GET /statistics` → estatísticas agregadas.
+
+Exemplo de consulta com filtros para /products:
+```
+/products?title=Men&category_id=3&max_price=50.00&min_price=10.00&order_by_price=desc&per_page=1`
+```
 
 Uma coleção do **Postman** com todas as rotas e exemplos de filtragem está disponível em:
 
@@ -60,21 +66,6 @@ Uma coleção do **Postman** com todas as rotas e exemplos de filtragem está di
 
 ---
 
-## 📝 Logs
-
-Os logs estruturados são gravados em:
-
-```
-storage/logs/laravel.json.log
-```
-
-Para visualização em tempo real no terminal, recomenda-se:
-
-```bash
-tail -f storage/logs/laravel.json.log | jq
-```
-
----
 ## 📝 Logs
 
 Os logs estruturados são gravados em:
@@ -104,6 +95,7 @@ tail -f storage/logs/laravel.json.log | jq
 
   Os valores padrões já estão definidos como *fallback* na configuração do Laravel.
 
+
 * **Configurações de Cache e Log**:
   Certifique-se de que a *stack* de logs e o *driver* de cache estão respectivamente como json e redis.
 
@@ -122,16 +114,16 @@ Foram criadas duas tabelas principais:
 
 * **categories**
 
-    * Campos: `id`, `name`, timestamps.
+    * Campos: `id`, `name`.
     * Índice em `name` para otimizar buscas/listagens.
 
 * **products**
 
-    * Campos: `id`, `title`, `description`, `price`, `external_id`, `category_id`, timestamps.
+    * Campos: `id`, `title`, `description`, `price`, `external_id`, `category_id`.
     * Relação **1\:N** com `categories`.
     * Índices em `title` (busca textual) e `price` (filtros e ordenação).
     * `external_id` é `UNIQUE` para evitar duplicidades vindas da Fake Store API.
-    * O campo `category_id` é definido como `foreignId()->constrained()`, o que faz o **Laravel criar automaticamente o índice e a constraint de chave estrangeira**, dispensando configuração manual.
+    * O campo `category_id` é definido como `foreignId()->constrained()`, o que faz o **Laravel criar automaticamente o índice e a constraint de chave estrangeira**, dispensando configuração manual na migration.
 
 ---
 

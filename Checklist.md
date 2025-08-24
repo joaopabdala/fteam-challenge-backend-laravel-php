@@ -26,8 +26,8 @@
         - [x] Top 5 produtos mais caros
     - [x] Usar SQL puro em pelo menos uma agregação
 
-- [ ] **Resiliência e erros**
-    - [ ] Tratar erro e timeout da API externa com resposta apropriada (`4xx/5xx`)
+- [x] **Resiliência e erros**
+    - [x] Tratar erro e timeout da API externa com resposta apropriada (`4xx/5xx`)
     - [x] Garantir que sincronização não quebre por causa de um item com erro (pular e registrar)
 
 ---
@@ -43,9 +43,9 @@
 - [x] Consumir API externa usando **HTTP Client nativo do Laravel**
 - [x] Evitar problema de **N+1** queries na listagem
 - [x] Cache de listagem/estatísticas com invalidação após sincronização
-- [ ] Rate limiting por cliente no middleware
+- [x] Rate limiting por cliente no middleware
 - [x] Paginação configurável via query string
-- [ ] Retries com backoff no consumo da API externa
+- [x] Retries com backoff no consumo da API externa
 - [x] Testes (unitários/feature) para pelo menos um endpoint crítico
 - [x] Docker (Dockerfile e docker-compose)
 - [x] Logs estruturados (json) e correlação de request id
@@ -53,21 +53,10 @@
 ---
 
 ## Entrega (README)
-- [ ] Instruções de setup
-- [ ] Variáveis de ambiente
-- [ ] Como rodar migrações
-- [ ] Como iniciar o servidor
-- [ ] Como executar a sincronização
-- [ ] Como testar os endpoints
-- [ ] Descrever decisão de modelagem e índices criados
-
----
-
-## Critérios de avaliação
-- [ ] Clareza do README e facilidade de execução
-- [ ] Corretude funcional dos endpoints e middleware
-- [ ] Qualidade da modelagem e uso de índices
-- [ ] Boas práticas de Laravel e organização do código
-- [ ] Performance básica (paginação, evitar N+1) e tratamento de erros
-- [ ] Uso de SQL puro no endpoint de estatísticas
-- [ ] Link para repositório público com código e README
+- [x] Instruções de setup
+- [x] Variáveis de ambiente
+- [x] Como rodar migrações
+- [x] Como iniciar o servidor
+- [x] Como executar a sincronização
+- [x] Como testar os endpoints
+- [x] Descrever decisão de modelagem e índices criados
